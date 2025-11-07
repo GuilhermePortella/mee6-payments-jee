@@ -1,0 +1,74 @@
+# Compiled Java class files
+*.class
+
+# Log files
+*.log
+*.log.*
+
+# Package files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*.log
+replay_pid*.log
+
+# Build directories
+build/
+out/
+dist/
+target/
+
+# Gradle
+.gradle/
+/build/
+
+# Maven
+.mvn/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+tmp/
+.metadata
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# VS Code
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Other
+*.tmp
+*.bak
+*.swp
+*~
