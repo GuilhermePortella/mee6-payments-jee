@@ -1,4 +1,4 @@
-package fish.payara.secured;
+package br.com.mee6.paymentsjee.secured;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -8,12 +8,12 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
 /**
- * Simply protected rest resource for role 'admin'.
+ * Simply protected rest resource for role 'user'.
  *
  */
-@Path("admin")
-@RolesAllowed("admin")
-public class AdminResource {
+@Path("protected")
+@RolesAllowed("user")
+public class ProtectedResource {
 
     @Inject
     private SecurityContext securityContext;
@@ -31,4 +31,3 @@ public class AdminResource {
                 .build();
     }
 }
-

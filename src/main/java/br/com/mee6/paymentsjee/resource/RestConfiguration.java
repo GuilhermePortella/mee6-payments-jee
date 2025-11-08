@@ -1,4 +1,4 @@
-package fish.payara.resource;
+package br.com.mee6.paymentsjee.resource;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

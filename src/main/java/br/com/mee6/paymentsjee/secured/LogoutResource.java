@@ -1,4 +1,4 @@
-package fish.payara.secured;
+package br.com.mee6.paymentsjee.secured;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
