@@ -3,7 +3,7 @@
 Projeto base **Jakarta EE 10 + MicroProfile 6** rodando no **Payara Micro 6.2025.10**.  
 Foco: **resiliência**, **observabilidade** e um **esqueleto limpo** para evoluir um serviço de pagamentos.
 
-> Este README é “mão-na-massa”: explica execução **com e sem Docker**, caminhos de endpoints, expectativas de resposta, configurações e troubleshooting inicial.
+> Execução **com e sem Docker**, caminhos de endpoints, expectativas de resposta, configurações e troubleshooting inicial.
 
 ---
 
@@ -53,7 +53,7 @@ Foco: **resiliência**, **observabilidade** e um **esqueleto limpo** para evolui
 mee6-payments-jee/
 ├─ pom.xml
 ├─ Dockerfile
-├─ src/
+├─ src/ 
 │  ├─ main/java/
 │  │  ├─ br/com/mee6/paymentsjee/resource/
 │  │  │  ├─ HelloWorldResource.java
