@@ -16,7 +16,7 @@ import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
-
+ 
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -50,7 +50,6 @@ public class PaymentResource {
             throw new WebApplicationException("Gateway temporariamente indisponível", 503);
         }
 
-        // “id” fake
         String id = "pay_" + System.currentTimeMillis();
         return Response.status(Response.Status.CREATED)
                 .entity(new PaymentResponse(id, "NEW"))
