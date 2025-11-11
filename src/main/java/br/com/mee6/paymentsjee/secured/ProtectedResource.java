@@ -7,10 +7,6 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
-/**
- * Simply protected rest resource for role 'user'.
- *
- */
 @Path("protected")
 @RolesAllowed("user")
 public class ProtectedResource {

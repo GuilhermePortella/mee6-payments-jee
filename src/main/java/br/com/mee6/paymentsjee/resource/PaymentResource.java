@@ -50,7 +50,6 @@ public class PaymentResource {
             throw new WebApplicationException("Gateway temporariamente indisponível", 503);
         }
 
-        // “id” fake
         String id = "pay_" + System.currentTimeMillis();
         return Response.status(Response.Status.CREATED)
                 .entity(new PaymentResponse(id, "NEW"))
