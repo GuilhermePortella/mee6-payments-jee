@@ -16,7 +16,7 @@ import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
- 
+
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
