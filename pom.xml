@@ -4,190 +4,30 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <groupId>br.com.mee6</groupId>
     <artifactId>mee6-payments-jee</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>mee6-payments-jee</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>17</maven.compiler.release>
-        <jakartaee-api.version>10.0.0</jakartaee-api.version>
-        <payara.version>6.2025.10</payara.version>
-
-        <!-- Por padrão, NÃO construir Docker -->
-        <docker.skip>true</docker.skip>
-    </properties>
-
-    <!-- BOM da Payara para versões consistentes -->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>fish.payara.api</groupId>
-                <artifactId>payara-bom</artifactId>
-                <version>${payara.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-        <!-- Jakarta EE API -->
         <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>${jakartaee-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- MicroProfile aggregate POM -->
-        <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
-            <version>6.1</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- API da Payara -->
-        <dependency>
-            <groupId>fish.payara.api</groupId>
-            <artifactId>payara-api</artifactId>
-            <version>${payara.version}</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
-
-        <plugins>
-            <!-- Compilador -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
-                <configuration>
-                    <release>${maven.compiler.release}</release>
-                </configuration>
-            </plugin>
-
-            <!-- WAR sem web.xml -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.0</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
-            </plugin>
-            <!-- Nenhum plugin Payara/Docker aqui no build padrão -->
-        </plugins>
+        <finalName>hello</finalName>
     </build>
-
-    <!-- Perfis opcionais -->
-    <profiles>
-        <!-- Gera microbundle somente quando invocado -->
-        <profile>
-            <id>micro-bundle</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>fish.payara.maven.plugins</groupId>
-                        <artifactId>payara-micro-maven-plugin</artifactId>
-                        <version>2.5.2</version>
-                        <executions>
-                            <execution>
-                                <id>bundle</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>bundle</goal>
-                                </goals>
-                                <configuration>
-                                    <payaraMicroVersion>${payara.version}</payaraMicroVersion>
-                                    <deployWar>true</deployWar>
-                                    <contextRoot>/</contextRoot>
-
-                                    <!-- Evita NPE do plugin -->
-                                    <properties>
-                                        <property>
-                                            <name>fish.payara.micro.instanceName</name>
-                                            <value>${project.artifactId}</value>
-                                        </property>
-                                    </properties>
-
-                                    <commandLineOptions>
-                                        <option>
-                                            <key>--autoBindHttp</key>
-                                        </option>
-                                    </commandLineOptions>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!-- Constrói imagem Docker quando chamado e se Docker estiver disponível -->
-        <profile>
-            <id>docker</id>
-            <properties>
-                <docker.skip>false</docker.skip>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>0.44.0</version>
-                        <executions>
-                            <execution>
-                                <id>build-image</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>build</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <skip>${docker.skip}</skip>
-                            <images>
-                                <image>
-                                    <name>${project.artifactId}:${project.version}</name>
-                                </image>
-                            </images>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
-    <!-- Repositórios Payara -->
-    <repositories>
-        <repository>
-            <id>payara-artifacts</id>
-            <url>https://nexus.payara.fish/repository/payara-artifacts/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>payara-patched</id>
-            <url>https://raw.githubusercontent.com/payara/Payara_PatchedProjects/master/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
 </project>
